@@ -77,4 +77,30 @@ public class PlayerController : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(groundCheck.position, checkRadius);
     }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(groundCheck.position, checkRadius);
+    }
+
+    void Update()
+    {
+        // Yerdeyse zýplama hakkýný yenile
+        if (isGrounded)
+        {
+            extraJumps = extraJumpsValue;
+        }
+
+        // Zýplama girdisini kontrol et
+        if (Input.GetKeyDown(KeyCode.Space) && extraJumps > 0)
+        {
+            rb.velocity = Vector2.up * jumpForce;
+            extraJumps--;
+        }
+        else if (Input.GetKeyDown(KeyCode.Space) && extraJumps == 0 && isGrounded)
+        {
+            rb.velocity = Vector2.up * jumpForce;
+        }
+    }
 }
